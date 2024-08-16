@@ -9,7 +9,7 @@ COPY . .
 # download depedency
 RUN go mod download
 # build file golang
-RUN  go build -v -o /goapp/musalabel ./cmd/main.go
+RUN  go build -v -o /goapp/ngoding-seru ./cmd/main.go
 
 FROM alpine:3.14
 
@@ -20,6 +20,6 @@ COPY --from=build /goapp /app/
 #karna di eksekusi di linux(alpine) harus daftarin path variable dahulu
 ENV PATH="/app:${PATH}"
 
-EXPOSE 9090
+EXPOSE 8080
 
-ENTRYPOINT [ "musalabel" ]
+ENTRYPOINT [ "ngoding-seru" ]
