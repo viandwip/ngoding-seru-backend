@@ -1,0 +1,6 @@
+version: 2
+authtoken: 2jsNQDQZkpRfLpmTEFKo50c7q2z_46xG8NEnjs8zoFimuXQ9D
+tunnels:
+  my-web-service:
+    addr: 8080
+    proto: http

@@ -1,0 +1,12 @@
+services:
+  backend:
+    image: oktaviandwip/musalabel:1
+    ports:
+      - "8080:8080"
+    environment:
+      DB_USER: musalabel_owner
+      DB_PASS: 8UMy0SzkEonX
+      DB_HOST: ep-patient-union-a1l4krg5.ap-southeast-1.aws.neon.tech
+      DB_NAME: musalabel
+      DB_PORT: 5432
+    restart: always
