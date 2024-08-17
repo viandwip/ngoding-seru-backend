@@ -69,7 +69,7 @@ func (r *RepoQuestions) FetchQuiz(types string) (*config.Result, error) {
 	}
 
 	// Create a slice with numbers 1 to 100
-	count := 1
+	count := 2
 	numbers := make([]int, count)
 	for i := 0; i < count; i++ {
 		numbers[i] = i + 1
