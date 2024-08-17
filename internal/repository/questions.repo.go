@@ -36,6 +36,7 @@ func (r *RepoQuestions) CreateQuestion(data *models.Question) (*config.Result, e
 				option_b,
 				option_c,
 				option_d,
+				explanation,
 				answer
 			)
 			VALUES(
@@ -47,6 +48,7 @@ func (r *RepoQuestions) CreateQuestion(data *models.Question) (*config.Result, e
 				:option_b,
 				:option_c,
 				:option_d,
+				:explanation,
 				:answer
 			)`
 
