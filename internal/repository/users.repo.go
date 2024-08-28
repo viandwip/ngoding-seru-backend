@@ -31,16 +31,16 @@ func (r *RepoUsers) CreateUser(data *models.User) (*config.Result, error) {
 	q := `INSERT INTO users (
 					email, 
 					password, 
-					phone_number,
 					role,
-					image
+					image,
+					full_name
 				)
 				VALUES(
 					:email,
 					:password,
-					:phone_number,
 					:role,
-					:image
+					:image,
+					:full_name
 				)`
 
 	_, err := r.NamedExec(q, data)
@@ -78,28 +78,22 @@ func (r *RepoUsers) UpdateProfile(data *models.User) (*config.Result, error) {
 			image = $1,
 			email = COALESCE(NULLIF($2, ''), email),
 			phone_number = COALESCE(NULLIF($3, ''), phone_number),
-			address1 = COALESCE(NULLIF($4, ''), address1),
-			address2 = COALESCE(NULLIF($5, ''), address2),
-			address3 = COALESCE(NULLIF($6, ''), address3),
-			full_name = COALESCE(NULLIF($7, ''), full_name),
-			username = COALESCE(NULLIF($8, ''), username),
-			birthday = COALESCE(CAST(NULLIF($9, '') AS DATE), birthday),
-			gender = COALESCE(NULLIF($10, ''), gender),
+			address = COALESCE(NULLIF($4, ''), address),
+			full_name = COALESCE(NULLIF($5, ''), full_name),
+			birthday = COALESCE(CAST(NULLIF($6, '') AS DATE), birthday),
+			gender = COALESCE(NULLIF($7, ''), gender),
 			updated_at = NOW()
 		WHERE
-			id = CAST($11 AS UUID)
-		RETURNING id, image, email, phone_number, role, address1, address2, address3, full_name, username, birthday, gender;
+			id = CAST($8 AS UUID)
+		RETURNING id, image, email, phone_number, role, address, full_name, birthday, gender;
 	`
 
 	args := []interface{}{
 		data.Image,
 		data.Email,
 		data.Phone_number,
-		data.Address1,
-		data.Address2,
-		data.Address3,
+		data.Address,
 		data.Full_name,
-		data.Username,
 		data.Birthday,
 		data.Gender,
 		data.Id,

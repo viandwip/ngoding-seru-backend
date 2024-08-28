@@ -30,6 +30,7 @@ func New(db *sqlx.DB) *gin.Engine {
 	auth(router, db)
 	orders(router, db)
 	questions(router, db)
+	stats(router, db)
 
 	return router
 }

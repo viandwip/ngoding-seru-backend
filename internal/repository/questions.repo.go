@@ -79,7 +79,7 @@ func (r *RepoQuestions) FetchQuiz(types string) (*config.Result, error) {
 
 	// Shuffle the slice
 	rand.Shuffle(len(numbers), func(i, j int) {
-		numbers[i], numbers[j] = numbers[j], numbers[i]
+		numbers[i], numbers[j] = numbers[j], numbers[i] 
 	})
 
 	return &config.Result{Data: result, Numbers: numbers}, nil

@@ -25,7 +25,9 @@ func NewAuth(r *repository.RepoUsers) *HandlerAuth {
 
 // Login
 func (h *HandlerAuth) Login(ctx *gin.Context) {
-	var data models.User
+	data := models.User{
+		Role: "user",
+	}
 
 	if err := ctx.ShouldBind(&data); err != nil {
 		pkg.NewRes(400, &config.Result{
@@ -36,10 +38,23 @@ func (h *HandlerAuth) Login(ctx *gin.Context) {
 
 	user, err := h.GetPassByEmail(data.Email)
 	if err != nil {
-		pkg.NewRes(401, &config.Result{
-			Data: err.Error(),
-		}).Send(ctx)
-		return
+		_, err := h.CreateUser(&data)
+		if err != nil {
+			fmt.Println(err)
+			pkg.NewRes(500, &config.Result{
+				Data: err.Error(),
+			}).Send(ctx)
+			return
+		}
+
+		user, err = h.GetPassByEmail(data.Email)
+		if err != nil {
+			fmt.Println(err)
+			pkg.NewRes(401, &config.Result{
+				Data: err.Error(),
+			}).Send(ctx)
+			return
+		}
 	}
 
 	if !data.IsGoogle {
